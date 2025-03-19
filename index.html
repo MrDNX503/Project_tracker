@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker de Proyectos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- Mejorar compatibilidad con móviles -->
+    <meta name="theme-color" content="#2c3e50">
+</head>
+<body>
+    <header>
+        <h1>Tracker de Proyectos</h1>
+        <button id="add-btn">Agregar Proyecto</button>
+        <button id="theme-toggle">Cambiar Tono</button>
+    </header>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal" class="close">×</span>
+            <form id="project-form">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" required>
+                <label for="description">Descripción:</label>
+                <input type="text" id="description" required>
+                <label for="status">Estado:</label>
+                <select id="status" required>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="en curso">En curso</option>
+                    <option value="completado">Completado</option>
+                </select>
+                <label for="progress">Progreso (%):</label>
+                <input type="number" id="progress" min="0" max="100" value="0" required>
+                <label for="start-date">Fecha de Inicio:</label>
+                <input type="date" id="start-date">
+                <label for="end-date">Fecha de Fin:</label>
+                <input type="date" id="end-date">
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <section id="projects-list">
+        <h2>Mis Proyectos</h2>
+        <div id="projects-container" class="projects-container">
+            <!-- Las tarjetas se añadirán aquí con JS -->
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Registrar el Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then((registration) => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Error al registrar el Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
