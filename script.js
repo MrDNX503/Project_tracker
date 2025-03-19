@@ -109,16 +109,5 @@ themeToggle.addEventListener('click', () => {
     themeToggle.textContent = document.body.classList.contains('dark-theme') ? 'Cambiar Tono' : 'Cambiar Tono';
 });
 
-if (projects.length === 0) {
-    projects.push({
-        name: "Pruebas SQL",
-        description: "50 preguntas intermedio/avanzado sobre SQL",
-        status: "completado",
-        progress: 100,
-        startDate: "2024-01-01",
-        endDate: "2024-03-01"
-    });
-    localStorage.setItem('projects', JSON.stringify(projects));
-}
 
 loadProjects();
