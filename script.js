@@ -1,3 +1,25 @@
+const motivationalMessages = [
+    "El viaje de mil millas comienza con un solo paso. - Lao Tsé",
+    "No es la carga lo que te pesa, sino cómo la llevas. - Proverbio chino",
+    "Cada gran obra comienza con un pequeño sueño. - Ancestral",
+    "El éxito es la suma de pequeños esfuerzos repetidos día tras día. - Proverbio",
+    "Siembra hoy, y cosecharás mañana. - Sabiduría antigua"
+];
+
+// Función para mostrar un mensaje aleatorio
+function showWelcomeMessage() {
+    const randomIndex = Math.floor(Math.random() * motivationalMessages.length);
+    const message = motivationalMessages[randomIndex];
+    alert(message); // Usamos alert por simplicidad, luego podemos mejorarlo
+}
+
+// Limpia localStorage si contiene Pruebas SQL (de tu cambio anterior)
+if (localStorage.getItem('projects') && JSON.parse(localStorage.getItem('projects')).some(p => p.name === "Pruebas SQL")) {
+    localStorage.removeItem('projects');
+}
+let projects = JSON.parse(localStorage.getItem('projects')) || [];
+let editingIndex = null;
+
 let projects = JSON.parse(localStorage.getItem('projects')) || [];
 let editingIndex = null;
 
@@ -67,8 +89,8 @@ projectForm.addEventListener('submit', (e) => {
         description: document.getElementById('description').value,
         status: document.getElementById('status').value,
         progress: document.getElementById('progress').value,
-        startDate: document.getElementById('start-date').value || '', // Vacío si no se define
-        endDate: document.getElementById('end-date').value || ''      // Vacío si no se define
+        startDate: document.getElementById('start-date').value || '',
+        endDate: document.getElementById('end-date').value || ''
     };
 
     if (editingIndex !== null) {
@@ -77,6 +99,9 @@ projectForm.addEventListener('submit', (e) => {
         document.querySelector('#project-form button[type="submit"]').textContent = 'Guardar';
     } else {
         projects.push(projectData);
+        if (projectData.progress == 100) {
+            showWelcomeMessage(); // Muestra mensaje al completar un proyecto
+        }
     }
 
     localStorage.setItem('projects', JSON.stringify(projects));
@@ -111,3 +136,4 @@ themeToggle.addEventListener('click', () => {
 
 
 loadProjects();
+showWelcomeMessage(); // Muestra el mensaje al abrir la app
