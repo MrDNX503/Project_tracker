@@ -5,8 +5,8 @@ const urlsToCache = [
     '/project_tracker/styles.css',
     '/project_tracker/script.js',
     '/project_tracker/manifest.json',
-    '/project_tracker/icons/icon-192x192.png',
-    '/project_tracker/icons/icon-512x512.png'
+    '/project_tracker/icon-192x192.png',
+    '/project_tracker/icon-512x512.png',
 ];
 
 self.addEventListener('install', (event) => {
