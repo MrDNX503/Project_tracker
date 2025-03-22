@@ -16,7 +16,7 @@ function showWelcomeMessage() {
 
 // Ejecutar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    // Limpia localStorage si contiene Pruebas SQL (por compatibilidad con versiones antiguas)
+    // Limpia localStorage si contiene Pruebas SQL (por compatibilidad)
     if (localStorage.getItem('projects') && JSON.parse(localStorage.getItem('projects')).some(p => p.name === "Pruebas SQL")) {
         localStorage.removeItem('projects');
     }
@@ -32,15 +32,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.getElementById('close-modal');
     const exportBtn = document.getElementById('export-btn');
     const importBtn = document.getElementById('import-btn');
+    const optionsBtn = document.querySelector('.options-btn > button');
+    const optionsMenu = document.querySelector('.options-menu');
 
     // Verifica que los elementos existan
-    if (!addBtn || !modal || !projectForm || !projectsContainer || !themeToggle || !closeModal || !exportBtn || !importBtn) {
+    if (!addBtn || !modal || !projectForm || !projectsContainer || !themeToggle || !closeModal || !exportBtn || !importBtn || !optionsBtn || !optionsMenu) {
         console.error('Uno o más elementos del DOM no se encontraron');
         return;
     }
 
+    // Alternar menú de opciones al hacer clic
+    optionsBtn.addEventListener('click', () => {
+        optionsMenu.classList.toggle('active');
+    });
+
+    // Cerrar menú si se hace clic fuera
+    document.addEventListener('click', (e) => {
+        if (!optionsBtn.contains(e.target) && !optionsMenu.contains(e.target)) {
+            optionsMenu.classList.remove('active');
+        }
+    });
+
+    // Event listeners
     addBtn.addEventListener('click', () => {
         modal.classList.toggle('hidden');
+        document.body.classList.toggle('modal-open'); // Añade/quita clase al body
         if (editingIndex === null) {
             projectForm.reset();
             document.querySelector('#project-form button[type="submit"]').textContent = 'Guardar';
@@ -49,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeModal.addEventListener('click', () => {
         modal.classList.add('hidden');
+        document.body.classList.remove('modal-open'); // Quita clase al cerrar
         projectForm.reset();
         editingIndex = null;
         document.querySelector('#project-form button[type="submit"]').textContent = 'Guardar';
@@ -80,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadProjects();
         projectForm.reset();
         modal.classList.add('hidden');
+        document.body.classList.remove('modal-open'); // Quita clase al guardar
     });
 
     themeToggle.addEventListener('click', () => {
@@ -133,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.click();
     });
 
+    // Funciones
     function loadProjects() {
         projects.sort((a, b) => b.progress - a.progress);
         projectsContainer.innerHTML = '';
@@ -160,11 +179,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="progress-fill" style="width: ${project.progress}%"></div>
                 </div>
                 <div class="actions">
-                    <button class="edit-btn" onclick="editProject(${index})">Editar</button>
-                    <button class="delete-btn" onclick="deleteProject(${index})">Eliminar</button>
+                    <button class="edit-btn">Editar</button>
+                    <button class="delete-btn">Eliminar</button>
                 </div>
             `;
             projectsContainer.appendChild(card);
+
+            // Asignar eventos a los botones dinámicamente
+            const editBtn = card.querySelector('.edit-btn');
+            const deleteBtn = card.querySelector('.delete-btn');
+            editBtn.addEventListener('click', () => editProject(index));
+            deleteBtn.addEventListener('click', () => deleteProject(index));
         });
     }
 
@@ -178,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('start-date').value = project.startDate || '';
         document.getElementById('end-date').value = project.endDate || '';
         modal.classList.remove('hidden');
+        document.body.classList.add('modal-open'); // Añade clase al editar
         document.querySelector('#project-form button[type="submit"]').textContent = 'Actualizar';
     }
 

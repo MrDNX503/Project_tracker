@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE_NAME = 'tracker-cache-v2'; // Cambia a v2 para forzar actualización
+const CACHE_NAME = 'tracker-cache-v3'; // Cambia a v3 para forzar una actualización
 const urlsToCache = [
     '/',
     '/index.html',
