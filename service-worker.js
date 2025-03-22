@@ -1,30 +1,25 @@
-// service-worker.js
-const CACHE_NAME = 'tracker-cache-v3'; // Cambia a v3 para forzar una actualización
+const CACHE_NAME = 'project-tracker-v1';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/script.js',
-    '/manifest.json',
-    '/icon-192.png',
-    '/icon-512.png'
+    '/project_tracker/',
+    '/project_tracker/index.html',
+    '/project_tracker/styles.css',
+    '/project_tracker/script.js',
+    '/project_tracker/manifest.json',
+    '/project_tracker/icons/icon-192x192.png',
+    '/project_tracker/icons/icon-512x512.png'
 ];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => {
-                return cache.addAll(urlsToCache);
-            })
+            .then((cache) => cache.addAll(urlsToCache))
     );
 });
 
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
-            .then((response) => {
-                return response || fetch(event.request);
-            })
+            .then((response) => response || fetch(event.request))
     );
 });
 

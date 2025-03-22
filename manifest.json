@@ -1,20 +1,22 @@
 {
   "name": "Tracker de Proyectos",
-  "short_name": "Tracker",
-  "start_url": "/",
+  "short_name": "Project Tracker",
+  "description": "Una PWA para gestionar proyectos con estilo y funcionalidad",
+  "start_url": "/project_tracker/",
   "display": "standalone",
-  "background_color": "#f4f4f4",
-  "theme_color": "#2c3e50",
+  "background_color": "#f9f9f9",
+  "theme_color": "#2ecc71",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+      {
+          "src": "/project_tracker/icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+      },
+      {
+          "src": "/project_tracker/icons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+      }
+  ],
+  "scope": "/project_tracker/"
 }

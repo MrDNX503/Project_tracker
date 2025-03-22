@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker de Proyectos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2c3e50">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tracker de Proyectos</title>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+        <link rel="manifest" href="/project_tracker/manifest.json"> <!-- Ruta absoluta -->
+        <link rel="stylesheet" href="styles.css">
+        <meta name="theme-color" content="#2ecc71">
+    </head>
 <body>
     <header>
         <h1>Tracker de Proyectos</h1>
@@ -59,7 +59,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
+                navigator.serviceWorker.register('/project_tracker/service-worker.js')
                     .then((registration) => {
                         console.log('Service Worker registrado con éxito:', registration);
                     })
